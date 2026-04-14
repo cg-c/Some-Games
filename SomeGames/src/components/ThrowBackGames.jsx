@@ -1,5 +1,5 @@
 import { useState } from "react"
-import SongResult from "./Functions/SongResult"
+import SongResult from "./functions/SongResult"
 
 const GuessSong = () => {
     return (
