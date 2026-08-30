@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import ThrowBackGames from './components/ThrowBackGames'
+import MusicGuesser from './components/MusicGuesser'
 import {
   BrowserRouter as Router,
   Routes, Route, Link
@@ -9,7 +9,7 @@ function App() {
 
   const home = () => (
     <div>
-      // display buttons of games in some grid/flex format
+      {/* // display buttons of games in some grid/flex format */}
     </div>
   )
 
@@ -17,7 +17,7 @@ function App() {
     <Router>
       <Routes>
         <Route path='/' element={home()} />
-        <Route path='/genzchildhood' element={<ThrowBackGames />} />
+        <Route path='/Holli' element={<MusicGuesser />} />
       </Routes>
     </Router>
   )
