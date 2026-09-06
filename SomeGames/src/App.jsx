@@ -1,16 +1,25 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import MusicGuesser from './components/MusicGuesser'
+import {
+  BrowserRouter as Router,
+  Routes, Route, Link
+} from 'react-router-dom'
 
 function App() {
-  const [count, setCount] = useState(0)
+
+  const home = () => (
+    <div>
+      {/* // display buttons of games in some grid/flex format */}
+    </div>
+  )
 
   return (
-    <>
-      
-    </>
+    <Router>
+      <Routes>
+        <Route path='/' element={home()} />
+        <Route path='/Holli' element={<MusicGuesser />} />
+      </Routes>
+    </Router>
   )
 }
 
