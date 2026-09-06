@@ -1,25 +1,16 @@
 import { useEffect, useState } from "react"
-import axios from "axios"
 import SongServices from './services/songs'
+import MusicPlayer from "./functions/MusicPlayer"
 
 const HolliPlaylist = "/playlist/15698151261"
-
-const GuessSong = () => {
-    return (
-        <div>
-
-        </div>
-    )
-}
 
 
 const MusicGuesser = () => {
 
-    // api calls here
     // do most logic in ipod --> reuse for others/daily
     const [userGuess, setUserGuess] = useState("")
     const [allSong, setAllSong] = useState([])
-    const [correctSongID, setCorrectSongID] = ("")
+    const [correctSong, setCorrectSong] = useState(null)
 
     useEffect(() => {
         SongServices
@@ -28,25 +19,42 @@ const MusicGuesser = () => {
                 const songsArr = returnedPlaylist.data.map(s => { return {  
                     id: s.id,
                     title: s.title,
-                    artist: s.artist.name
+                    artist: s.artist.name,
+                    link: s.link,
+                    preview: s.preview
                 }})
 
                 setAllSong(songsArr)
             })
+        pickSong()
     }, [])
 
+    useEffect(() => {
+        pickSong()
+    }, [allSong]) // CHANGE THIS TO NEW GAME
 
-
+    
     const pickSong = (event) => {
-
+        const song = allSong[Math.floor(Math.random() * allSong.length)]
+        setCorrectSong(song)
     }
 
     const handleChangeGuess = (event) => {
         setUserGuess(event.target.value)
     }
 
+    // const reload = (event) => { // REDO
+    //     pickSong()
+    // }
+
+    
+    if (correctSong == null) {
+        return <div>Song loading...</div>
+    }
+
     return (
         <div>
+            <MusicPlayer song={correctSong} />
             <form onSubmit={(event) => event.preventDefault()}>
                 <div>
                     guess <input value={userGuess}

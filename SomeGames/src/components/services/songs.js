@@ -7,4 +7,10 @@ const getAll = (playlist) => {
     return request.then(response => response.data)
 }
 
-export default { getAll }
+const getSong = (songID) => {
+    const trackUrl = `${cors}${baseUrl}/track/${songID}`
+    const request = axios.get(trackUrl)
+    return request.then(response => response.data)
+}
+
+export default { getAll, getSong }
