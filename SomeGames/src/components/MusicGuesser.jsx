@@ -25,17 +25,17 @@ const MusicGuesser = () => {
                 }})
 
                 setAllSong(songsArr)
+                pickSong(songsArr)
             })
-        pickSong()
     }, [])
 
-    useEffect(() => {
-        pickSong()
-    }, [allSong]) // CHANGE THIS TO NEW GAME
+    // useEffect(() => {
+    //     pickSong()
+    // }, [allSong]) // CHANGE THIS TO NEW GAME
 
     
-    const pickSong = (event) => {
-        const song = allSong[Math.floor(Math.random() * allSong.length)]
+    const pickSong = (songsArr) => {
+        const song = songsArr[Math.floor(Math.random() * songsArr.length)]
         setCorrectSong(song)
     }
 
