@@ -15,34 +15,16 @@ const MusicPlayer = ({ song }) => {
     const progBar = useRef()
     const animationRef = useRef()
     
-    // useEffect(() => { // might not work how I want it to
-    //     if (currTime >= times[prog]) {
-    //         sound.stop()
-    //     }
-    // }, [currTime])
 
 
-    // const sound = new Howl({
-    //     src: [song.preview],
-    //     html5: true,
-    //     format: ['mp3'],
-    //     sprite: {
-    //         1: [0, 100],
-    //         2: [0, 1000],
-    //         3: [0, 3000],
-    //         4: [0, 5000],
-    //         5: [0, 10000],
-    //         6: [0, 15000]
-    //     },
-    // })
+    useEffect(() => {
+        if (currTime >= times[prog]) {
+            stopSong()
+            audioPlayer.current.currentTime = 0.0
+            changePlayerTime()
+        }
 
-    // useEffect(() => {
-
-    // }, [isPlaying()])
-
-    // useEffect(() => {
-
-    // }, [currTime])
+    }, [currTime])
 
     useEffect(() => {
         progBar.current.max = maxDur
@@ -51,14 +33,19 @@ const MusicPlayer = ({ song }) => {
 
     const play = () => {
         if (isPlaying) {
-            audioPlayer.current.pause()
-            cancelAnimationFrame(animationRef.current)
+            stopSong()
         }
         else {
             audioPlayer.current.play()
             animationRef.current = requestAnimationFrame(playingSong)
+            setIsPlaying(true)
         }
-        setIsPlaying(!isPlaying)
+    }
+
+    const stopSong = () => {
+        audioPlayer.current.pause()
+        cancelAnimationFrame(animationRef.current)
+        setIsPlaying(false)
     }
 
     const changePlayerTime = () => {
@@ -73,28 +60,32 @@ const MusicPlayer = ({ song }) => {
     }
 
     const back = () => {
-        // sound.stop()
-        setIsPlaying(false)
-        // sound.seek(0)
-        console.log('return') // DELETE
-        // ADD VISUALS ON BAR
+        stopSong()
+        audioPlayer.current.currentTime = 0.0
+        changePlayerTime()
+        setCurrTime(progBar.current.value)
+        animationRef.current = requestAnimationFrame(playingSong)
     }
 
     const next = () => {
-        // MAKE IT UNLOCK THE NEXT SECTION
-        // sound.stop()
         setIsPlaying(false)
 
-        // if (prog + 1 >= times.length) {
-        //     // GIVE UP SCREEN
-        //     console.log('lose')
-        // }
-        // else {
-        //     // setProg(prog + 1)
-        //     // sound.seek(times[prog]) //DOESN'T WORK
-        //     console.log(times[prog]) // DELETE
-        //     // sound.play()
-        // }
+        if (prog + 1 >= times.length) {
+            // GIVE UP SCREEN
+            console.log('lose')
+        }
+        else {
+            setProg(prog + 1)
+            
+
+            if (!isPlaying) {
+                audioPlayer.current.currentTime = times[prog] / 100.00
+                changePlayerTime()
+                setCurrTime(progBar.current.value)
+            }
+            
+            console.log(times[prog]) // DELETE
+        }
     }
 
     const handleSeek = () => {
