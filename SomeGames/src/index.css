@@ -1,3 +1,96 @@
+
+/* Progress Bar */
+.progressBar {
+  --bar-bg: white;
+  --seek-before-width: 100px;
+  --seek-before-color: rgb(0, 140, 255);
+  --knobby: rgb(6, 71, 135);
+  --selectedKnobby: rgb(0, 31, 54);
+
+  appearance: none;
+  background: var(--bar-bg);
+  position: relative;
+  width: 80%;
+  height: 15px;
+  outline: none;
+}
+
+.progressBar::-webkit-slider-runnable-track {
+  background: var(--bar-bg);
+  position: relative;
+  width: 80%;
+  height: 15px;
+  outline: none;
+}
+
+.progressBar::-moz-range-track {
+  background: var(--bar-bg);
+  position: relative;
+  width: 80%;
+  height: 15px;
+  outline: none;
+}
+
+.progressBar::-moz-focus-outer {
+  border: 0;
+}
+
+.progressBar::before {
+  content: '';
+  height: 15px;
+  width: var(--seek-before-width);
+  background-color: var(--seek-before-color);
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  cursor: pointer;
+}
+
+.progressBar::-moz-range-progress {
+  background-color: var(--seek-before-color);
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  height: 15px;
+}
+
+/* Knobs */
+.progressBar::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 5px;
+  height: 17px;
+  border: none;
+  background-color: var(--knobby);
+  cursor: pointer;
+  position: relative;
+  margin: -2px 0 0 0;
+  z-index: 3;
+  box-sizing: border-box;
+}
+
+.progressBar::-moz-range-thumb {
+  width: 5px;
+  height: 17px;
+  border: transparent;
+  background-color: var(--knobby);
+  cursor: pointer;
+  position: relative;
+  z-index: 3;
+  box-sizing: border-box;
+}
+
+.progressBar:active::-webkit-slider-thumb {
+  transform: scale(1.2);
+  background: var(--selectedKnobby);
+}
+
+.progressBar:active::-moz-range-thumb {
+  transform: scale(1.2);
+  background: var(--selectedKnobby);
+}
+
 :root {
   --text: #6b6375;
   --text-h: #08060d;

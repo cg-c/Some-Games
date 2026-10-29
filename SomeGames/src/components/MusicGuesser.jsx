@@ -2,19 +2,18 @@ import { useEffect, useState } from "react"
 import SongServices from './services/songs'
 import MusicPlayer from "./functions/MusicPlayer"
 
-const HolliPlaylist = "/playlist/15698151261"
 
-
-const MusicGuesser = () => {
-
+const MusicGuesser = ({ id }) => {
     // do most logic in ipod --> reuse for others/daily
     const [userGuess, setUserGuess] = useState("")
     const [allSong, setAllSong] = useState([])
     const [correctSong, setCorrectSong] = useState(null)
 
+    const playlist = `/playlist/${id}`
+
     useEffect(() => {
         SongServices
-            .getAll(HolliPlaylist)
+            .getAll(playlist)
             .then(returnedPlaylist => {
                 const songsArr = returnedPlaylist.data.map(s => { return {  
                     id: s.id,
@@ -25,17 +24,17 @@ const MusicGuesser = () => {
                 }})
 
                 setAllSong(songsArr)
+                pickSong(songsArr)
             })
-        pickSong()
     }, [])
 
-    useEffect(() => {
-        pickSong()
-    }, [allSong]) // CHANGE THIS TO NEW GAME
+    // useEffect(() => {
+    //     pickSong()
+    // }, [allSong]) // CHANGE THIS TO NEW GAME
 
     
-    const pickSong = (event) => {
-        const song = allSong[Math.floor(Math.random() * allSong.length)]
+    const pickSong = (songsArr) => {
+        const song = songsArr[Math.floor(Math.random() * songsArr.length)]
         setCorrectSong(song)
     }
 
