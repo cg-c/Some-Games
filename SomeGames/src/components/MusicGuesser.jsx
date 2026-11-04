@@ -9,6 +9,7 @@ const MusicGuesser = ({ id }) => {
     const [userGuess, setUserGuess] = useState("")
     const [allSong, setAllSong] = useState([])
     const [correctSong, setCorrectSong] = useState(null)
+    const [selectedSong, setSelectedSong] = useState(null)
     // const [filteredSongs = setFilteredSongs] = useState([])
 
     const playlist = `/playlist/${id}`
@@ -46,20 +47,30 @@ const MusicGuesser = ({ id }) => {
         // handleSongFilter()
     }
 
+    const handleSelectingSong = (result) => {
+        console.log(result)
+        setSelectedSong(result)
+        setUserGuess(`${result.title} - ${result.artist}`)
+    }
 
-    // const handleSongFilter = () => {
-    //     const filter = allSong.filter(s => {
-    //         s.title.toLowerCase().includes(userGuess.toLowerCase()) 
-    //     })
-
-    //     setFilteredSongs(filter)
-    // }
-
-    
     const filteredSongs = allSong.filter(s => 
         s.title?.toLowerCase().includes(userGuess.toLowerCase()) 
         || s.artist?.toLowerCase().includes(userGuess.toLowerCase())
     )
+
+    const handleCompareGuess = () => {
+        if (selectedSong.id === correctSong.id) {
+            console.log("Winner!")
+        }
+        else {
+            // skip
+        }
+    }
+
+    const handleClear = () => {
+        setSelectedSong(null)
+        setUserGuess("")
+    }
 
     // const reload = (event) => { // REDO
     //     pickSong()
@@ -76,11 +87,13 @@ const MusicGuesser = ({ id }) => {
             
             <form onSubmit={(event) => event.preventDefault()}>
                 <div>
+                    {selectedSong ? <button onClick={handleClear}>X</button> : null}
                     <input placeholder="Search for song or artist..." value={userGuess}
                     onChange={handleChangeGuess} />
+                    {selectedSong ? <button onClick={handleCompareGuess}>&gt;</button> : null}
                 </div>
             </form>
-            <SearchBar songs={filteredSongs} userGuess={userGuess} />
+            <SearchBar songs={filteredSongs} userGuess={userGuess} handleSelectingSong={handleSelectingSong} />
             {/* // back button
             // title
             // 6 guesses

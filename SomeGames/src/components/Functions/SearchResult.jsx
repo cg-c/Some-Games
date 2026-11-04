@@ -1,10 +1,9 @@
 
 
-const SearchResult = ({ result }) => {
+const SearchResult = ({ result, handleSelectingSong }) => {
 
     const handleSelectResult = () => {
-        console.log(result)
-        // auto fill --> change the guess --> on enter check id === id
+        handleSelectingSong(result)
     }
 
     return (
