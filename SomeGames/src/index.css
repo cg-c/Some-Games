@@ -91,6 +91,28 @@
   background: var(--selectedKnobby);
 }
 
+
+/* Search Bar */
+.searchBar {
+  width: 100%;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  max-height: 300px;
+  overflow: scroll;
+
+}
+
+.searchResult {
+  padding: 10px 20px;
+}
+
+.searchResult:hover {
+  background-color: #4182C2;
+}
+
+
 :root {
   --text: #6b6375;
   --text-h: #08060d;
