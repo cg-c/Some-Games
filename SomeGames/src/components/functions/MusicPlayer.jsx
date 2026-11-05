@@ -3,7 +3,7 @@ import { use, useEffect, useRef, useState } from 'react'
 
 const times = [10, 100, 300, 500, 1000, 1500]
 
-const MusicPlayer = ({ song }) => {
+const MusicPlayer = ({ song, numGuesses, handleAddingGuess }) => {
 
     const [prog, setProg] = useState(0)
     const [currTime, setCurrTime] = useState(0)
@@ -70,22 +70,20 @@ const MusicPlayer = ({ song }) => {
     const next = () => {
         setIsPlaying(false)
 
-        if (prog + 1 >= times.length) {
-            // GIVE UP SCREEN
-            console.log('lose')
-        }
-        else {
-            setProg(prog + 1)
+        // if (prog + 1 >= times.length) {
+        //     // GIVE UP SCREEN
+        //     console.log('lose')
+        // }
+        // else {
+            handleAddingGuess()
+            setProg(numGuesses)
             
-
             if (!isPlaying) {
                 audioPlayer.current.currentTime = times[prog] / 100.00
                 changePlayerTime()
                 setCurrTime(progBar.current.value)
             }
-            
-            console.log(times[prog]) // DELETE
-        }
+        // }
     }
 
     const handleSeek = () => {
