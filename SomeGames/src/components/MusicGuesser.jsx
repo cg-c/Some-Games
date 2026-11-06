@@ -3,6 +3,7 @@ import SongServices from './services/songs'
 import MusicPlayer from "./functions/MusicPlayer"
 import SearchBar from "./Functions/SearchBar"
 import SongResult from "./Functions/SongResult"
+import GuessDisplay from "./Functions/GuessDisplay"
 
 
 const MusicGuesser = ({ id }) => {
@@ -108,7 +109,7 @@ const MusicGuesser = ({ id }) => {
         return (
             <div>
                 <MusicPlayer song={correctSong} numGuesses={numGuesses} handleAddingGuess={handleAddingGuess} />
-                
+                <GuessDisplay guesses={allGuesses} correctSong={correctSong} />
                 <form onSubmit={(event) => event.preventDefault()}>
                     <div>
                         {selectedSong ? <button onClick={handleClear}>X</button> : null}

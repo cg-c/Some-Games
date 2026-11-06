@@ -5,7 +5,7 @@ const times = [10, 100, 300, 500, 1000, 1500]
 
 const MusicPlayer = ({ song, numGuesses, handleAddingGuess }) => {
 
-    const [prog, setProg] = useState(0)
+    const [prog, setProg] = useState(numGuesses)
     const [currTime, setCurrTime] = useState(0)
     const [percent, setPercent] = useState(0)
     const [isPlaying, setIsPlaying] = useState(false)
@@ -32,6 +32,8 @@ const MusicPlayer = ({ song, numGuesses, handleAddingGuess }) => {
 
 
     const play = () => {
+        setProg(numGuesses)
+
         if (isPlaying) {
             stopSong()
         }
@@ -69,7 +71,6 @@ const MusicPlayer = ({ song, numGuesses, handleAddingGuess }) => {
 
     const next = () => {
         setIsPlaying(false)
-        setProg(numGuesses + 1)
         handleAddingGuess()            
         
         if (!isPlaying) {
