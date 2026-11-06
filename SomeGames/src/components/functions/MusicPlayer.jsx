@@ -69,21 +69,14 @@ const MusicPlayer = ({ song, numGuesses, handleAddingGuess }) => {
 
     const next = () => {
         setIsPlaying(false)
-
-        // if (prog + 1 >= times.length) {
-        //     // GIVE UP SCREEN
-        //     console.log('lose')
-        // }
-        // else {
-            handleAddingGuess()
-            setProg(numGuesses)
-            
-            if (!isPlaying) {
-                audioPlayer.current.currentTime = times[prog] / 100.00
-                changePlayerTime()
-                setCurrTime(progBar.current.value)
-            }
-        // }
+        setProg(numGuesses + 1)
+        handleAddingGuess()            
+        
+        if (!isPlaying) {
+            audioPlayer.current.currentTime = times[prog] / 100.00
+            changePlayerTime()
+            setCurrTime(progBar.current.value)
+        }
     }
 
     const handleSeek = () => {
