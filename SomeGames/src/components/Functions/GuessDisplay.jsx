@@ -1,3 +1,4 @@
+import EachGuess from "./EachGuess"
 
 
 const GuessDisplay = ({ guesses, correctSong }) => {
@@ -6,7 +7,7 @@ const GuessDisplay = ({ guesses, correctSong }) => {
         return (
             <div>
                 {guesses.map(g => {
-                    return <div>{g.title} - {g.artist}</div>
+                    return <EachGuess song={g} correctSong={correctSong} />
                 })}
             </div>
         )

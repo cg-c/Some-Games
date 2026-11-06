@@ -108,7 +108,6 @@ const MusicGuesser = ({ id }) => {
     if (page === 'play') {
         return (
             <div>
-                <MusicPlayer song={correctSong} numGuesses={numGuesses} handleAddingGuess={handleAddingGuess} />
                 <GuessDisplay guesses={allGuesses} correctSong={correctSong} />
                 <form onSubmit={(event) => event.preventDefault()}>
                     <div>
@@ -118,7 +117,11 @@ const MusicGuesser = ({ id }) => {
                         {selectedSong ? <button onClick={handleCompareGuess}>&gt;</button> : null}
                     </div>
                 </form>
-                <SearchBar songs={filteredSongs} userGuess={userGuess} handleSelectingSong={handleSelectingSong} />
+                <div>
+                    <SearchBar songs={filteredSongs} userGuess={userGuess} handleSelectingSong={handleSelectingSong} />
+                    <MusicPlayer song={correctSong} numGuesses={numGuesses} handleAddingGuess={handleAddingGuess} />
+                </div>
+                
                 {/* // back button
                 // title
                 // 6 guesses
