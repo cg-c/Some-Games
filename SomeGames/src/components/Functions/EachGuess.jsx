@@ -14,6 +14,15 @@ const EachGuess = ({ song, correctSong }) => {
         }
     }
 
+    if (song === 'skipped') {
+        return (
+            <div>
+                Skipped
+                &emsp;&emsp;{logo}
+            </div>
+        )
+    }
+
     return (
         <div>
             <div>{song.title} - {song.artist} 

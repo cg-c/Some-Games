@@ -4,6 +4,7 @@ import MusicPlayer from "./functions/MusicPlayer"
 import SearchBar from "./Functions/SearchBar"
 import SongResult from "./Functions/SongResult"
 import GuessDisplay from "./Functions/GuessDisplay"
+import { Link, useNavigate } from "react-router-dom"
 
 
 const MusicGuesser = ({ id }) => {
@@ -18,6 +19,7 @@ const MusicGuesser = ({ id }) => {
     // const [filteredSongs = setFilteredSongs] = useState([])
 
     const playlist = `/playlist/${id}`
+    const navigate = useNavigate()
 
     useEffect(() => {
         SongServices
@@ -82,6 +84,11 @@ const MusicGuesser = ({ id }) => {
         setUserGuess("")
     }
 
+    const handleSkipped = () => {
+        setAllGuesses([...allGuesses, 'skipped'])
+        handleAddingGuess()
+    }
+
     const handleAddingGuess = () => {
         setNumGuesses(numGuesses + 1)
 
@@ -100,6 +107,10 @@ const MusicGuesser = ({ id }) => {
         handleClear()
     }
 
+    // BACK BUTTON
+    const backButton = () => {
+        navigate('/')
+    }
     
     if (correctSong == null) {
         return <div>Song loading...</div>
@@ -108,6 +119,7 @@ const MusicGuesser = ({ id }) => {
     if (page === 'play') {
         return (
             <div>
+                <button onClick={backButton}>&lt;--</button>
                 <GuessDisplay guesses={allGuesses} correctSong={correctSong} />
                 <form onSubmit={(event) => event.preventDefault()}>
                     <div>
@@ -119,7 +131,7 @@ const MusicGuesser = ({ id }) => {
                 </form>
                 <div>
                     <SearchBar songs={filteredSongs} userGuess={userGuess} handleSelectingSong={handleSelectingSong} />
-                    <MusicPlayer song={correctSong} numGuesses={numGuesses} handleAddingGuess={handleAddingGuess} />
+                    <MusicPlayer song={correctSong} numGuesses={numGuesses} handleAddingGuess={handleSkipped} />
                 </div>
                 
                 {/* // back button

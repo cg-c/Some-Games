@@ -38,7 +38,7 @@ function App() {
 
   const links = playlists.map((p) => {
     return (
-      <Link to={`/${p.Name}`}>
+      <Link to={`/${p.Name}`} key={p.Name}>
         <img src={`${imgSrc}${p.Name}.jpg`} style={{ width: '350px', cursor: 'pointer'}} />
       </Link>
     )
@@ -46,7 +46,7 @@ function App() {
 
   const paths = playlists.map((p) => {
     return (
-      <Route path={`/${p.Name}`} element={<MusicGuesser id={p.ID} />} />
+      <Route path={`/${p.Name}`} key={p.name} element={<MusicGuesser id={p.ID} />} />
     )
   })
 
